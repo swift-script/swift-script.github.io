@@ -1,6 +1,6 @@
 #left {
 	position:absolute;
-    width: 600px;
+    width: 400px;
     float: left;
      top: 40px; /* Header Height */
      bottom: 100px; /* Footer Height */
@@ -8,7 +8,7 @@
   }
 #right {
 	position:absolute;
-    left: 610px;
+    left: 400px;
     border:1px solid gray;
     top: 40px; /* Header Height */
     bottom: 140px; /* Footer Height */
@@ -20,4 +20,7 @@
 	margin-bottom: 5px;
 	margin-left: 100px;
 	margin-right: 100px;
+    border: 2px solid;
+    border-radius: 25px;
+    font-size: 1.5em;
 }
