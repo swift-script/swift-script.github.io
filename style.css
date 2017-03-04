@@ -1,19 +1,23 @@
 #left {
 	position:absolute;
-
     width: 600px;
-     float: left;
-     background-color: red;
+    float: left;
+     top: 40px; /* Header Height */
+     bottom: 100px; /* Footer Height */
+     text-align: center;
   }
 #right {
-      margin-left: 600px;
-      background-color: green;
+	position:absolute;
+    left: 610px;
+    border:1px solid gray;
+    top: 40px; /* Header Height */
+    bottom: 140px; /* Footer Height */
+    width: 600px;
     }
-.clear {
-      clear: both;
-}
 
-.form {
-	clear: left;
+#button {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 100px;
+	margin-right: 100px;
 }
-
