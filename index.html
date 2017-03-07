@@ -48,7 +48,9 @@
           theme: "output",
         });
         $(".ss-try-button", editor).click(function() {
-          outputMirror.setValue('const name = "SwiftScript";\nconsole.log("Hello " + name + "!");');
+          $.post("https://swiftscript.wtr.io", inputMirror.getValue(), function(js) {
+            outputMirror.setValue(js);
+          });
         });
       });
     });
