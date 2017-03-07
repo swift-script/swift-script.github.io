@@ -32,6 +32,7 @@
     $(function() {
       var editors = $(".ss-editor");
       editors.each(function(editor) {
+        var first = true;
         var inputArea = $(".ss-input>textarea", editor)[0];
         var inputMirror = CodeMirror.fromTextArea(inputArea, {
           lineNumbers: true,
@@ -39,6 +40,12 @@
           autoCloseBrackets: true,
           indentUnit: 4,
           mode: "text/x-swift",
+        });
+        inputMirror.on("focus", function() {
+          if (first) {
+            inputMirror.setValue("");
+            first = false;
+          }
         });
         var outputArea = $(".ss-output>textarea", editor)[0];
         var outputMirror = CodeMirror.fromTextArea(outputArea, {
