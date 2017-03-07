@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" type="image/png" href="/img/icon.png" />
+
+    <title>SwiftScript</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+
+    <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+
+    <script src="/lib/codemirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="/lib/codemirror/lib/codemirror.css">
+    <script src="/lib/codemirror/mode/javascript/javascript.js"></script>
+    <script src="/lib/codemirror/mode/swift/swift.js"></script>
+    <script src="/lib/codemirror/addon/edit/closebrackets.js"></script>
+    <script src="/lib/codemirror/addon/edit/matchbrackets.js"></script>
+    <link rel="stylesheet" href="/lib/codemirror/theme/output.css">
+
+    <link rel="stylesheet" href="/css/index.css" />
+
+    <script>
+    $(function() {
+      var editors = $(".ss-editor");
+      editors.each(function(editor) {
+        var inputArea = $(".ss-input>textarea", editor)[0];
+        var inputMirror = CodeMirror.fromTextArea(inputArea, {
+          lineNumbers: true,
+          matchBrackets: true,
+          autoCloseBrackets: true,
+          indentUnit: 4,
+          mode: "text/x-swift",
+        });
+        var outputArea = $(".ss-output>textarea", editor)[0];
+        var outputMirror = CodeMirror.fromTextArea(outputArea, {
+          lineNumbers: true,
+          indentUnit: 4,
+          readOnly: true,
+          theme: "output",
+        });
+        $(".ss-try-button", editor).click(function() {
+          outputMirror.setValue('const name = "SwiftScript";\nconsole.log("Hello " + name + "!");');
+        });
+      });
+    });
+    </script>
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"><img src="/img/logo.png" alt="try! SwiftScript" /></a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="/">try!</a></li>
+          <li><a href="https://github.com/swift-script/swift-script">GitHub</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+  <div class="container ss-editor">
+    <div class="row">
+      <div class="col-md-6 ss-input">
+        <textarea>//   Write a Swift code here and press the "try!" button.
+//   The code will be translated to JavaScript.
+</textarea>
+      </div>
+      <div class="col-md-6 ss-output">
+        <textarea readonly=""></textarea>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <a class="btn btn-primary btn-lg ss-try-button" role="button">try!</a>
+  </footer>
+</body>
+
+</html>
