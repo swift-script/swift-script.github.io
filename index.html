@@ -30,35 +30,46 @@
 
     <script>
     $(function() {
-      var editors = $(".ss-editor");
-      editors.each(function(editor) {
-        var first = true;
-        var inputArea = $(".ss-input>textarea", editor)[0];
-        var inputMirror = CodeMirror.fromTextArea(inputArea, {
-          lineNumbers: true,
-          matchBrackets: true,
-          autoCloseBrackets: true,
-          indentUnit: 4,
-          mode: "text/x-swift",
+      var editor = $(".ss-editor");
+      var first = true;
+      var inputArea = $(".ss-input>textarea", editor)[0];
+      var inputMirror = CodeMirror.fromTextArea(inputArea, {
+        lineNumbers: true,
+        lineWrapping: true,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        indentUnit: 4,
+        mode: "text/x-swift",
+      });
+      inputMirror.on("focus", function() {
+        if (first) {
+          inputMirror.setValue("");
+          first = false;
+        }
+      });
+      var outputArea = $(".ss-output>textarea", editor)[0];
+      var outputMirror = CodeMirror.fromTextArea(outputArea, {
+        lineNumbers: true,
+        lineWrapping: true,
+        indentUnit: 4,
+        readOnly: true,
+        theme: "output",
+      });
+      var tryButton = $(".ss-try-button");
+      var closeButton = $(".ss-close-button");
+      tryButton.click(function() {
+        editor.addClass("ss-show-output");
+        tryButton.addClass("ss-show-output");
+        closeButton.addClass("ss-show-output");
+        $.post("https://swiftscript.wtr.io", inputMirror.getValue(), function(js) {
+          console.log(js);
+          outputMirror.setValue(js);
         });
-        inputMirror.on("focus", function() {
-          if (first) {
-            inputMirror.setValue("");
-            first = false;
-          }
-        });
-        var outputArea = $(".ss-output>textarea", editor)[0];
-        var outputMirror = CodeMirror.fromTextArea(outputArea, {
-          lineNumbers: true,
-          indentUnit: 4,
-          readOnly: true,
-          theme: "output",
-        });
-        $(".ss-try-button", editor).click(function() {
-          $.post("https://swiftscript.wtr.io", inputMirror.getValue(), function(js) {
-            outputMirror.setValue(js);
-          });
-        });
+      });
+      closeButton.click(function() {
+        editor.removeClass("ss-show-output");
+        tryButton.removeClass("ss-show-output");
+        closeButton.removeClass("ss-show-output");
       });
     });
     </script>
@@ -85,21 +96,20 @@
     </div>
   </nav>
 
-  <div class="container ss-editor">
-    <div class="row">
-      <div class="col-md-6 ss-input">
-        <textarea>//   Write a Swift code here and press the "try!" button.
+  <div class="ss-editor">
+    <div class="ss-input">
+      <textarea>//   Write a Swift code here and press the "try!" button.
 //   The code will be translated to JavaScript.
 </textarea>
-      </div>
-      <div class="col-md-6 ss-output">
-        <textarea readonly=""></textarea>
-      </div>
+    </div>
+    <div class="ss-output">
+      <textarea readonly=""></textarea>
     </div>
   </div>
 
   <footer class="footer">
     <a class="btn btn-primary btn-lg ss-try-button" role="button">try!</a>
+    <a class="btn btn-primary btn-lg ss-close-button" role="button">close</a>
   </footer>
 </body>
 
