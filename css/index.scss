@@ -35,6 +35,11 @@ body {
   width: 100%;
 }
 
+#navbar {
+  background-color: $theme;
+  border-top: none;
+}
+
 .navbar {
   height: $navbar-height;
 }
@@ -50,6 +55,20 @@ body {
 
     img {
       height: 100%;
+    }
+  }
+
+  .navbar-toggle {
+    border: none;
+
+    &:focus {
+      background-color: $theme;
+    }
+    &:hover,&:active {
+      background-color: $theme-highlighted;
+    }
+    &:hover:active {
+      background-color: $theme;
     }
   }
 
